@@ -18,11 +18,10 @@ def toInt(inValue):
         return 0
 
 
-def deleteItem():
-    for i in range(22, 23):
-        pc = PC.objects.get(id=i)
-        print pc
-        pc.delete()
+def deleteItem(i):
+    pc = PC.objects.get(id=i)
+    print pc
+    pc.delete()
 
 
 def addData(request):
@@ -39,6 +38,14 @@ def addData(request):
         temp_2=toInt(request.GET.get('temp_2')),
         temp_3=toInt(request.GET.get('temp_3')),
     )
+    pc = PC.objects.get(id=int(request.GET.get('id_pc')))
+    if not pc.fullData:
+        pc_data = Data.objects.filter(id_pc=pc.id)
+        print pc_data
+        count = Data.objects.filter(id_pc=pc.id).count()
+        if count >= pc.limit:
+            data = Data.objects.filter(id_pc=pc.id).first()
+            data.delete()
     data_pc.save()
     return HttpResponse('200')
 
@@ -58,7 +65,7 @@ def addPC(request):
                 swap=float(request.GET.get('swap')),
                 high=float(request.GET.get('high')),
                 crit=float(request.GET.get('crit')),
-                limit=int(request.GET.get('limit')))
+                limit=int(request.GET.get('limitMonitor')),
+                fullData = False)
         pc.save()
     return HttpResponse(pc.id)
-

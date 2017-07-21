@@ -18,6 +18,7 @@ class PC(models.Model):
     high = models.FloatField()
     crit = models.FloatField()
     limit = models.IntegerField()
+    fullData = models.BooleanField()
 
 
 class Data(models.Model):
