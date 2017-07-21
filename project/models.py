@@ -17,7 +17,7 @@ class PC(models.Model):
     swap = models.FloatField()
     high = models.FloatField()
     crit = models.FloatField()
-    limit = models.IntegerField(null=True)
+    limit = models.IntegerField()
 
 
 class Data(models.Model):

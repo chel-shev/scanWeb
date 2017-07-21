@@ -44,24 +44,21 @@ def addData(request):
 
 
 def addPC(request):
-    PC.objects.get(id=23).delete()
-    PC.objects.get(id=24).delete()
-    # try:
-    #     pc = PC.objects.get(pc=request.GET.get('pc'))
-    # except PC.DoesNotExist:
-    #     pc = PC(pc=request.GET.get('pc'),
-    #             os=request.GET.get('os'),
-    #             distro=request.GET.get('distro'),
-    #             isa=request.GET.get('isa'),
-    #             kernel=request.GET.get('kernel'),
-    #             cpu=request.GET.get('cpu'),
-    #             memory=float(request.GET.get('memory')),
-    #             ram=float(request.GET.get('ram')),
-    #             swap=float(request.GET.get('swap')),
-    #             high=float(request.GET.get('high')),
-    #             crit=float(request.GET.get('crit')),
-    #             limit=int(request.GET.get('crit')))
-    #     pc.save()
-    # return HttpResponse(pc.id)
-    return HttpResponse(0)
+    try:
+        pc = PC.objects.get(pc=request.GET.get('pc'))
+    except PC.DoesNotExist:
+        pc = PC(pc=request.GET.get('pc'),
+                os=request.GET.get('os'),
+                distro=request.GET.get('distro'),
+                isa=request.GET.get('isa'),
+                kernel=request.GET.get('kernel'),
+                cpu=request.GET.get('cpu'),
+                memory=float(request.GET.get('memory')),
+                ram=float(request.GET.get('ram')),
+                swap=float(request.GET.get('swap')),
+                high=float(request.GET.get('high')),
+                crit=float(request.GET.get('crit')),
+                limit=int(request.GET.get('limit')))
+        pc.save()
+    return HttpResponse(pc.id)
 
