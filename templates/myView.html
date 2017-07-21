@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PhoneBook</title>
+	<style type="text/css">
+		body {
+			background-color: cadetblue;
+		}
+		button {
+			width: 100px;
+    		height: 25px;
+		}
+	</style>
+</head>
+<body>
+	<form action="http://127.0.0.1:8000/add/">
+		<button type="submit">Add</button>
+	</form>
+	{% for user in users %}
+		<hr>
+		<p>Name:  {{ user.name_user }}</p>
+		<p>Phone:  {{ user.phone_user }}</p>
+	{% endfor %}
+
+	
+</body>
+</html>

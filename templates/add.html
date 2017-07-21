@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add User</title>
+	<style type="text/css">
+		body {
+			background-color: cadetblue;
+		}
+		input {
+			width: 100px;
+    		height: 25px;
+		}
+	</style>
+</head>
+<body>
+	<form action="/add/" method="post">
+	{% csrf_token %}
+		<input type="text" name="name" title="Name">
+		<input type="text" name="phone" title="Phone">
+		<input type="submit" value="Add">
+	</form>
+</body>
+</html>
