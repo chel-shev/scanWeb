@@ -1,7 +1,10 @@
+import datetime
+import time
 from django.shortcuts import render, HttpResponseRedirect
 from django.http import HttpResponse
 from project.models import PC, Data
 from django.http import Http404
+import django.utils.timezone
 
 
 # Create your views here.
@@ -11,9 +14,9 @@ def show(request):
     return render(request, 'myView.html', ctx)
 
 
-def toInt(inValue):
-    if inValue != '':
-        return int(float(inValue))
+def toInt(in_value):
+    if in_value != '':
+        return int(float(in_value))
     else:
         return 0
 
@@ -39,15 +42,16 @@ def addData(request):
         temp_3=toInt(request.GET.get('temp_3')),
     )
     pc = PC.objects.get(id=int(request.GET.get('id_pc')))
-    if not pc.fullData:
-        pc_data = Data.objects.filter(id_pc=pc.id)
-        print pc_data
-        count = Data.objects.filter(id_pc=pc.id).count()
-        if count >= pc.limit:
-            data = Data.objects.filter(id_pc=pc.id).first()
-            data.delete()
+    count = Data.objects.filter(id_pc=pc.id).count()
+    if count >= pc.limit:
+        data = Data.objects.filter(id_pc=pc.id).first()
+
+        data.delete()
     data_pc.save()
     return HttpResponse('200')
+
+
+
 
 
 def addPC(request):
@@ -66,6 +70,16 @@ def addPC(request):
                 high=float(request.GET.get('high')),
                 crit=float(request.GET.get('crit')),
                 limit=int(request.GET.get('limitMonitor')),
-                fullData = False)
+                fullData=False)
         pc.save()
     return HttpResponse(pc.id)
+
+
+def view_pc(request):
+    data = Data.objects.filter().first()
+
+    now = datetime.datetime.now().replace(tzinfo=None)
+
+    add = data.date_add.replace(tzinfo=None)
+    time.mktime(now - add)
+    return None

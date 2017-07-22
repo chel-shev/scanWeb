@@ -1,5 +1,5 @@
 from django.db import models
-
+import django.utils.timezone
 
 class PC(models.Model):
     class Meta:
@@ -18,8 +18,6 @@ class PC(models.Model):
     high = models.FloatField()
     crit = models.FloatField()
     limit = models.IntegerField()
-    fullData = models.BooleanField()
-
 
 class Data(models.Model):
     class Meta:
@@ -36,4 +34,5 @@ class Data(models.Model):
     temp_1 = models.IntegerField()
     temp_2 = models.IntegerField()
     temp_3 = models.IntegerField()
+    date_add = models.DateTimeField(auto_now_add=True)
     id_pc = models.ForeignKey(PC, on_delete=models.CASCADE)
